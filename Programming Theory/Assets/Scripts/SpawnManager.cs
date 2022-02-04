@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BeatDetector.beatFull || (BeatDetector.beatCountD8 % 8 == 4 && BeatDetector.beatD8))
+        if (BeatDetector.beatFull)
         {
             SpawnOrb();
         }

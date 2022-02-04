@@ -89,6 +89,10 @@ public class ScoreManager : MonoBehaviour
             {
                 orb.DestroySelf();
             }
+            else if (orb == null)
+            {
+                activeOrbs.Remove(orb);
+            }
         }
     }
     IEnumerator CheckGameOver()

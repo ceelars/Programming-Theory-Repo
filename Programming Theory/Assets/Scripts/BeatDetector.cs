@@ -9,7 +9,7 @@ public class BeatDetector : MonoBehaviour
     private float beatTimer, beatTimerD8;
     public static bool beatFull, beatD8;
     public static int beatCountFull, beatCountD8;
-    private float bpm =60;
+    public static float bpm = 60;
  
     /*public float BPM
     {

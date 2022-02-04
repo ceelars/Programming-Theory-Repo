@@ -4,25 +4,42 @@ using UnityEngine;
 
 public class BeatMarker : MonoBehaviour
 {
-    public float markerSpeed;
-    public Transform beatZone;
     public static bool isInBeatZone, canBeDestroyed;
+
+    protected Transform beatZone;
+    private float markerSpeed;
+    protected float MarkerSpeed
+    {
+        get { return markerSpeed; }
+        set
+        {
+            if (value <= 0)
+            {
+                Debug.LogError("Speed must have a positive value");
+            }
+            else
+            {
+                markerSpeed = value;
+            }
+
+        }
+    }
 
     private void Awake()
     {
-        ScoreManager.activeOrbs.Add(this);
     }
     private void FixedUpdate()
     {
-        MoveDown();
+        MoveToZone();
         ConstrainMarkerMovement();
         isInBeatZone = false;
     }
-    public virtual void MoveDown()
+    private void MoveToZone()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * markerSpeed);
+        Vector3 direction = beatZone.position - transform.position;
+        transform.Translate(direction.normalized * Time.deltaTime * markerSpeed);
     }
-    public virtual void ConstrainMarkerMovement()
+    protected virtual void ConstrainMarkerMovement()
     {
         if(transform.position.y <= beatZone.position.y)
         {
@@ -44,4 +61,15 @@ public class BeatMarker : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    protected void SetMarkerSpeed(float speed)
+    {
+        MarkerSpeed = BeatDetector.bpm / 60;
+        MarkerSpeed *= speed;
+    }
+    protected virtual void FindBeatZone()
+    {
+        beatZone = GameObject.FindGameObjectWithTag("BeatZone").transform;
+    }
+    
 }
