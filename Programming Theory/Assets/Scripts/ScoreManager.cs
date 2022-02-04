@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
 
     private GameManager gameManagerScript;
     private BeatDetector beatDetectorScript;
-    public static List<BeatMarker> activeOrbs = new List<BeatMarker>();
+    public static List<GameObject> activeOrbs = new List<GameObject>();
     private int perfectScore, goodScore, badScore, badBeats, goodBeats;
     private bool beatAttempt, canAttempt;
 
@@ -73,7 +73,7 @@ public class ScoreManager : MonoBehaviour
             beatAttempt = false;
             canAttempt = true;
             DestroyOrb();
-            StartCoroutine(CheckGameOver());
+            //StartCoroutine(CheckGameOver());
         }
         else if (beatAttempt && BeatDetector.beatCountD8 % 8 == 2 && BeatDetector.beatD8)
         {
@@ -83,18 +83,15 @@ public class ScoreManager : MonoBehaviour
     }
     void DestroyOrb()
     {
-        foreach(BeatMarker orb in activeOrbs)
+        activeOrbs = new List<GameObject>(GameObject.FindGameObjectsWithTag("Orb"));
+
+        foreach(GameObject orb in activeOrbs)
         {
-            if (orb != null)
-            {
-                orb.DestroySelf();
-            }
-            else if (orb == null)
-            {
-                activeOrbs.Remove(orb);
-            }
+            BeatMarker orbScript = orb.GetComponent<BeatMarker>();
+            orbScript.DestroySelf();
         }
     }
+   
     IEnumerator CheckGameOver()
     {
         badBeats ++;

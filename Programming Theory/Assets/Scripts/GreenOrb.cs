@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class GreenOrb : BeatMarker
 {
-    private void Start()
-    {
-        FindBeatZone();
-    }
     private void Awake()
     {
-        AddToActiveOrbs();
-        SetMarkerSpeed(5);
+        SetOrbSpeed(5);
+        FindBeatZone();
     }
 
+    private void FixedUpdate()
+    {
+        isInBeatZone = false;
+        MoveToZone();
+        ConstrainMarkerMovement();
+    }
+    
     protected override void ConstrainMarkerMovement()
     {
         base.ConstrainMarkerMovement();
@@ -22,6 +25,7 @@ public class GreenOrb : BeatMarker
             transform.position = beatZone.position;
         }
     }
+
     protected override void FindBeatZone()
     {
         beatZone = GameObject.Find("GreenZone").transform;

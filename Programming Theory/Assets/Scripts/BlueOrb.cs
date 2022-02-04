@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class BlueOrb : BeatMarker
 {
-    private void Start()
-    {
-        FindBeatZone();
-    }
     private void Awake()
     {
-        AddToActiveOrbs();
-        SetMarkerSpeed(5);
+        SetOrbSpeed(5);
+        FindBeatZone();
     }
+
+    private void FixedUpdate()
+    {
+        isInBeatZone = false;
+        MoveToZone();
+        ConstrainMarkerMovement();
+    }
+  
     protected override void ConstrainMarkerMovement()
     {
         base.ConstrainMarkerMovement();

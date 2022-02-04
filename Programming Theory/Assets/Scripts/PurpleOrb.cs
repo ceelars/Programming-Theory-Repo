@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PurpleOrb : BeatMarker
 {
-    private void Start()
-    {
-        FindBeatZone();
-    }
     private void Awake()
     {
-        AddToActiveOrbs();
-        SetMarkerSpeed(2);
+        SetOrbSpeed(2);
+        FindBeatZone();
     }
+    private void FixedUpdate()
+    {
+        isInBeatZone = false;
+        MoveToZone();
+        ConstrainMarkerMovement();
+    }
+
     protected override void FindBeatZone()
     {
         beatZone = GameObject.Find("PurpleZone").transform;

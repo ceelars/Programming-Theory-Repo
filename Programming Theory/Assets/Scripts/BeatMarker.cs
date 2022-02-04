@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BeatMarker : MonoBehaviour
 {
-    public static bool isInBeatZone, canBeDestroyed;
+    public bool isInBeatZone, canBeDestroyed;
 
     protected Transform beatZone;
-    private float markerSpeed;
-    protected float MarkerSpeed
+    private float orbSpeed;
+    protected float OrbSpeed
     {
-        get { return markerSpeed; }
+        get { return orbSpeed; }
         set
         {
             if (value <= 0)
@@ -19,25 +19,16 @@ public class BeatMarker : MonoBehaviour
             }
             else
             {
-                markerSpeed = value;
+                orbSpeed = value;
             }
 
         }
     }
 
-    private void Awake()
-    {
-    }
-    private void FixedUpdate()
-    {
-        MoveToZone();
-        ConstrainMarkerMovement();
-        isInBeatZone = false;
-    }
-    private void MoveToZone()
+    protected void MoveToZone()
     {
         Vector3 direction = beatZone.position - transform.position;
-        transform.Translate(direction.normalized * Time.deltaTime * markerSpeed);
+        transform.Translate(direction.normalized * Time.deltaTime * OrbSpeed);
     }
     protected virtual void ConstrainMarkerMovement()
     {
@@ -54,22 +45,20 @@ public class BeatMarker : MonoBehaviour
             canBeDestroyed = true;
         }
     }
-    public void DestroySelf()
+    protected void SetOrbSpeed(float speed)
     {
-        if (canBeDestroyed)
-        {
-            Destroy(gameObject);
-        }
-    }
-    
-    protected void SetMarkerSpeed(float speed)
-    {
-        MarkerSpeed = BeatDetector.bpm / 60;
-        MarkerSpeed *= speed;
+        OrbSpeed = BeatDetector.bpm / 60;
+        OrbSpeed *= speed;
     }
     protected virtual void FindBeatZone()
     {
         beatZone = GameObject.FindGameObjectWithTag("BeatZone").transform;
     }
-    
+    public void DestroySelf()
+    {
+        if (canBeDestroyed)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
