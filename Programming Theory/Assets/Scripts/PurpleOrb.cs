@@ -6,8 +6,9 @@ public class PurpleOrb : BeatMarker
 {
     private void Awake()
     {
-        SetOrbSpeed(2);
         FindBeatZone();
+        SetOrbSpeed(1);
+        SetOrbBaseSpeed();
     }
     private void FixedUpdate()
     {

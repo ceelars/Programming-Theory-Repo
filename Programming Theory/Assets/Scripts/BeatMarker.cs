@@ -7,10 +7,11 @@ public class BeatMarker : MonoBehaviour
     public bool isInBeatZone, canBeDestroyed;
 
     protected Transform beatZone;
-    private float orbSpeed;
-    protected float OrbSpeed
+    private float orbSpeed, orbBaseDuration = 1.0f;
+    private float orbSpeedMultiplier;
+    protected float OrbSpeedMultiplier
     {
-        get { return orbSpeed; }
+        get { return orbSpeedMultiplier; }
         set
         {
             if (value <= 0)
@@ -19,16 +20,22 @@ public class BeatMarker : MonoBehaviour
             }
             else
             {
-                orbSpeed = value;
+                orbSpeedMultiplier = value;
             }
 
         }
     }
 
+    protected void SetOrbBaseSpeed()
+    {
+        float distance = Vector3.Distance(beatZone.position, transform.position);
+        float duration = (orbBaseDuration * BeatDetector.beatInterval) / (OrbSpeedMultiplier);
+        orbSpeed = distance / duration;
+    } 
     protected void MoveToZone()
     {
         Vector3 direction = beatZone.position - transform.position;
-        transform.Translate(direction.normalized * Time.deltaTime * OrbSpeed);
+        transform.Translate(direction.normalized * Time.deltaTime * orbSpeed);
     }
     protected virtual void ConstrainMarkerMovement()
     {
@@ -45,10 +52,9 @@ public class BeatMarker : MonoBehaviour
             canBeDestroyed = true;
         }
     }
-    protected void SetOrbSpeed(float speed)
+    protected void SetOrbSpeed(int speed)
     {
-        OrbSpeed = BeatDetector.bpm / 60;
-        OrbSpeed *= speed;
+        OrbSpeedMultiplier = speed/8;
     }
     protected virtual void FindBeatZone()
     {

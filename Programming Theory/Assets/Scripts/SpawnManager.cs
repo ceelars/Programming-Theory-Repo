@@ -6,9 +6,7 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] orbs;
     [SerializeField] private Transform[] orbSpawn;
-    public float spawnInterval = 1.0f;
 
-    // Update is called once per frame
     void Update()
     {
         if (BeatDetector.beatFull)

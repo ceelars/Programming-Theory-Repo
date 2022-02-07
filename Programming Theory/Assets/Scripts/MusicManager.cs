@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    public int bankSize;
+    private int bankSize = 10;
     private List<AudioSource> soundClip;
 
-    // Start is called before the first frame update
     void Start()
+    {
+        CreateSoundClipBank();
+    }
+    //Initialize list of playable clips
+    void CreateSoundClipBank()
     {
         soundClip = new List<AudioSource>();
         for (int i = 0; i < bankSize; i++)
@@ -19,8 +23,10 @@ public class MusicManager : MonoBehaviour
             soundClip.Add(soundInstance.GetComponent<AudioSource>());
         }
     }
+
     public void PlaySound(AudioClip clip, float volume)
     {
+        //Reassign unused slots from soundclip list
         for (int i = 0; i < soundClip.Count; i++)
         {
             if (!soundClip[i].isPlaying)
@@ -31,6 +37,7 @@ public class MusicManager : MonoBehaviour
                 return;
             }
         }
+        //Create new sound instance and add to soundclip list if all clips are active   
         GameObject soundInstance = new GameObject("sound");
         soundInstance.AddComponent<AudioSource>();
         soundInstance.transform.parent = this.transform;

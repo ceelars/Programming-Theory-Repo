@@ -5,8 +5,9 @@ using UnityEngine;
 public class BeatDetector : MonoBehaviour
 {
     private static BeatDetector beatDetectorInstance;
-    private float beatInterval, beatIntervalD8;
     private float beatTimer, beatTimerD8;
+    
+    public static float beatInterval, beatIntervalD8;
     public static bool beatFull, beatD8;
     public static int beatCountFull, beatCountD8;
     public static float bpm = 60;
@@ -16,6 +17,7 @@ public class BeatDetector : MonoBehaviour
         get { return bpm; }
         private set { bpm = value; }
     }*/
+
     //Ensures this is the only instance of beat detector
     private void Awake()
     {
@@ -30,13 +32,6 @@ public class BeatDetector : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         BeatDetection();

@@ -34,7 +34,7 @@ public class ScoreManager : MonoBehaviour
     void CheckScore()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canAttempt &&
-         (BeatDetector.beatCountD8 % 8 == 0 || BeatDetector.beatCountD8 % 8 == 0))
+         (BeatDetector.beatCountD8 % 8 == 7 || BeatDetector.beatCountD8 % 8 == 0))
         {
             perfectScore++;
             //perfectScoreText.text = "Perfect: " + perfectScore;
@@ -44,7 +44,7 @@ public class ScoreManager : MonoBehaviour
             //StartCoroutine(CheckDifficulty());
         }
         else if (Input.GetKeyDown(KeyCode.Space) && canAttempt && BeatDetector.beatCountD8 % 8 != 0 &&
-            (BeatDetector.beatCountD8 % 8 <= 2 || BeatDetector.beatCountD8 % 8 >= 6))
+            (BeatDetector.beatCountD8 % 8 == 6 || BeatDetector.beatCountD8 % 8 == 1))
         {
             goodScore++;
             //goodScoreText.text = "Good: " + goodScore;
@@ -54,7 +54,7 @@ public class ScoreManager : MonoBehaviour
             //StartCoroutine(CheckDifficulty());
         }
         else if (Input.GetKeyDown(KeyCode.Space) && canAttempt &&
-            (BeatDetector.beatCountD8 % 8 >= 2 || BeatDetector.beatCountD8 % 8 <= 6))
+            (BeatDetector.beatCountD8 % 8 >= 2 || BeatDetector.beatCountD8 % 8 <= 5))
         {
             badScore++;
             //badScoreText.text = "Bad: " + badScore;

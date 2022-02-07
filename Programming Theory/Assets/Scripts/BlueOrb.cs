@@ -6,8 +6,9 @@ public class BlueOrb : BeatMarker
 {
     private void Awake()
     {
-        SetOrbSpeed(5);
         FindBeatZone();
+        SetOrbSpeed(2);
+        SetOrbBaseSpeed();
     }
 
     private void FixedUpdate()
