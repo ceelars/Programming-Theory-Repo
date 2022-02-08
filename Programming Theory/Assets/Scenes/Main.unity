@@ -1082,10 +1082,12 @@ MonoBehaviour:
   - {fileID: 423282392335551353, guid: 52da99b9ec15f6c4db161490d21c4222, type: 3}
   - {fileID: 7985735772248139914, guid: 858ceb59bc0483d4285e77e9523349e1, type: 3}
   - {fileID: 4131682663336379531, guid: 1c53709a1db2122448ae4850a6c43dd8, type: 3}
+  - {fileID: 4115203827304659036, guid: 4a60f0707b8c71841bceffa0417468d5, type: 3}
   orbSpawn:
   - {fileID: 1238527147}
   - {fileID: 434030518}
   - {fileID: 120244415}
+  - {fileID: 434030518}
 --- !u!1 &1947784384
 GameObject:
   m_ObjectHideFlags: 0

@@ -73,6 +73,7 @@ public class ScoreManager : MonoBehaviour
             beatAttempt = false;
             canAttempt = true;
             DestroyOrb();
+            
             //StartCoroutine(CheckGameOver());
         }
         else if (beatAttempt && BeatDetector.beatCountD8 % 8 == 2 && BeatDetector.beatD8)

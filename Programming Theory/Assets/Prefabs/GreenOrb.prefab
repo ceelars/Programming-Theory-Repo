@@ -108,3 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e8593fb7196114487ae04a5e9e4ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInBeatZone: 0
+  canBeDestroyed: 0
+  beatZone: {fileID: 0}
+  orbDuration: 0
+  specialOrb: {fileID: 4115203827304659036, guid: 4a60f0707b8c71841bceffa0417468d5, type: 3}

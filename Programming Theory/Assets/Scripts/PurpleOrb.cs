@@ -7,7 +7,7 @@ public class PurpleOrb : BeatMarker
     private void Awake()
     {
         FindBeatZone();
-        SetOrbSpeed(1);
+        SetOrbDuration(3);
         SetOrbBaseSpeed();
     }
     private void FixedUpdate()
@@ -17,8 +17,9 @@ public class PurpleOrb : BeatMarker
         ConstrainMarkerMovement();
     }
 
-    protected override void FindBeatZone()
+    public override void FindBeatZone()
     {
         beatZone = GameObject.Find("PurpleZone").transform;
     }
+    
 }

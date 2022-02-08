@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BlueOrb : BeatMarker
 {
+    public GameObject specialOrb;
     private void Awake()
     {
         FindBeatZone();
-        SetOrbSpeed(2);
+        CheckChildStatus();
         SetOrbBaseSpeed();
     }
 
@@ -20,14 +21,26 @@ public class BlueOrb : BeatMarker
   
     protected override void ConstrainMarkerMovement()
     {
-        base.ConstrainMarkerMovement();
         if(transform.position.x <= beatZone.position.x)
         {
             transform.position = beatZone.position;
+            if (gameObject.transform.parent != specialOrb.transform)
+            {
+                base.ConstrainMarkerMovement();
+            }
         }
     }
-    protected override void FindBeatZone()
+    public override void FindBeatZone()
     {
         beatZone = GameObject.Find("BlueZone").transform;
+    }
+    private void CheckChildStatus()
+    {
+        if (gameObject.transform.parent == specialOrb.transform)
+        {
+            SetOrbDuration(0.5f);
+        }
+        else
+            SetOrbDuration(2.0f);
     }
 }

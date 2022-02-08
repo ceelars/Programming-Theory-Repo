@@ -6,30 +6,30 @@ public class BeatMarker : MonoBehaviour
 {
     public bool isInBeatZone, canBeDestroyed;
 
-    protected Transform beatZone;
-    private float orbSpeed, orbBaseDuration = 1.0f;
-    private float orbSpeedMultiplier;
-    protected float OrbSpeedMultiplier
+    public Transform beatZone;
+    private float orbSpeed;
+    public float orbDuration;
+    protected float OrbDuration
     {
-        get { return orbSpeedMultiplier; }
+        get { return orbDuration; }
         set
         {
             if (value <= 0)
             {
-                Debug.LogError("Speed must have a positive value");
+                Debug.LogError("Duration must have a positive value");
             }
             else
             {
-                orbSpeedMultiplier = value;
+                orbDuration = value;
             }
 
         }
     }
 
-    protected void SetOrbBaseSpeed()
+    public void SetOrbBaseSpeed()
     {
         float distance = Vector3.Distance(beatZone.position, transform.position);
-        float duration = (orbBaseDuration * BeatDetector.beatInterval) / (OrbSpeedMultiplier);
+        float duration = (orbDuration * BeatDetector.beatInterval);
         orbSpeed = distance / duration;
     } 
     protected void MoveToZone()
@@ -52,15 +52,15 @@ public class BeatMarker : MonoBehaviour
             canBeDestroyed = true;
         }
     }
-    protected void SetOrbSpeed(int speed)
+    protected void SetOrbDuration(float duration)
     {
-        OrbSpeedMultiplier = speed/8;
+        orbDuration = duration;
     }
-    protected virtual void FindBeatZone()
+    public virtual void FindBeatZone()
     {
         beatZone = GameObject.FindGameObjectWithTag("BeatZone").transform;
     }
-    public void DestroySelf()
+    public virtual void DestroySelf()
     {
         if (canBeDestroyed)
         {
