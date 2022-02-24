@@ -4,24 +4,33 @@ using UnityEngine;
 
 public class GreenOrb : BeatMarker
 {
-    public GameObject specialOrb;
-    private void Awake()
+    private float specialGreenDuration = 0.5f;
+    private float normalGreenDuration = 2.0f;
+    public KeyCode greenInput = KeyCode.D;
+
+    protected override void Awake()
     {
-        FindBeatZone();
-        CheckChildStatus();
+        base.Awake();
+        SetOrbDuration(normalGreenDuration, specialGreenDuration);
         SetOrbBaseSpeed();
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
-        isInBeatZone = false;
-        MoveToZone();
-        ConstrainMarkerMovement();
+        RunDuringGame();
     }
-    
+
+    //SCRIPTS TO RUN WHILE GAME IS ACTIVE//
+    private void RunDuringGame()
+    {
+        if (GameManager.isGameActive)
+        {
+            CheckPlayerInput(greenInput);
+        }
+    }
+
     protected override void ConstrainMarkerMovement()
     {
-        if(transform.position.x >= beatZone.position.x)
+        if (transform.position.x >= beatZone.position.x)
         {
             transform.position = beatZone.position;
             if (gameObject.transform.parent != specialOrb.transform)
@@ -35,13 +44,6 @@ public class GreenOrb : BeatMarker
     {
         beatZone = GameObject.Find("GreenZone").transform;
     }
-    private void CheckChildStatus()
-    {
-        if (gameObject.transform.parent == specialOrb.transform)
-        {
-            SetOrbDuration(0.5f);
-        }
-        else
-            SetOrbDuration(2.0f);
-    }
+
+   
 }

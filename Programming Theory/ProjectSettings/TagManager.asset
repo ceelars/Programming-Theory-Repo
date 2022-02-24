@@ -8,6 +8,7 @@ TagManager:
   - BeatZone
   - LeftIndicator
   - RightIndicator
+  - ActiveZone
   layers:
   - Default
   - TransparentFX
