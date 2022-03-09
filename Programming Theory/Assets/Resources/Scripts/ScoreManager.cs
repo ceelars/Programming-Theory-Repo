@@ -6,25 +6,19 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public Text scoreText, mistakesText;
+    public Text scoreText, mistakesText, playerNameText;
     public GameObject[] feedbackIndicators;
-    private GameManager gameManagerScript;
-    private BeatDetector beatDetectorScript;
-    public int perfectScore, goodScore, badScore, badBeats, goodBeats, bankSize;
-    private bool beatAttempt, canAttempt;
+    public int currentScore, perfectScore, goodScore, badScore, badBeats, goodBeats, bankSize;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        beatDetectorScript = GameObject.Find("BeatDetector").GetComponent<BeatDetector>();
-        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerNameText.text = DataManager.playerName;
     }
-
     //RESOLVE POINTS FOR BEAT OUTCOMES
     public void HitPerfectBeat(int points)
     {
         perfectScore += points;
-        UpdateScoreText();
+        UpdateScore();
         goodBeats++;
         StartCoroutine(DisplayFeedback(0));
     }
@@ -32,7 +26,7 @@ public class ScoreManager : MonoBehaviour
     public void HitGoodBeat(int points)
     {
         goodScore += points;
-        UpdateScoreText();
+        UpdateScore();
         goodBeats++;
         StartCoroutine(DisplayFeedback(1));
     }
@@ -41,7 +35,7 @@ public class ScoreManager : MonoBehaviour
     {
         badScore += points;
         MarkMistakes();
-        UpdateScoreText();
+        UpdateScore();
         badBeats++;
         StartCoroutine(DisplayFeedback(2));
         CheckGameOver();
@@ -50,23 +44,26 @@ public class ScoreManager : MonoBehaviour
     {
         badScore += points;
         MarkMistakes();
-        UpdateScoreText();
+        UpdateScore();
         badBeats++;
         StartCoroutine(DisplayFeedback(3));
         CheckGameOver();
     }
 
     //SECONDARY TASKS DURING SCORE UPDATES
-    private void UpdateScoreText()
+    private void UpdateScore()
     {
-        scoreText.text = "Score: " + (perfectScore + goodScore + badScore);
+        currentScore = (perfectScore + goodScore + badScore);
+        scoreText.text = "Score: " + currentScore;
     }
 
     private void CheckGameOver()
     {
-        if (badBeats >= 10)
+        if (badBeats >= 1)
         {
-            //gameManagerScript.GameOver();
+            GameManager.GameOver();
+            DisplayLeaderboard.UpdateLeaderboard(currentScore);
+            DataManager.SaveScores();
         }
     }
 

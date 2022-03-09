@@ -56,4 +56,15 @@ public class SpawnManager : MonoBehaviour
         }
         CreateNewOrbInstance(orb);
     }
+    public static void DestroyAllOrbs()
+    {
+        for (int i = 0; i < activeOrbs.Count; i++)
+        {
+            if (activeOrbs[i] == null)
+            {
+                Destroy(activeOrbs[i]);
+                return;
+            }
+        }
+    }
 }

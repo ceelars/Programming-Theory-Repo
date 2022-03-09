@@ -1,31 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GameManager : MonoBehaviour
 {
-    //public TextMeshProUGUI gameOver;
-    public static bool isGameActive, isGameOver;
+    public static GameObject gameOverStatic;
+    public GameObject gameOver;
 
-    // Start is called before the first frame update
+    public static bool specialOrbDestroyed;
+    public static bool isGameActive { get; private set; }
+    public static bool isGameOver { get; private set; }
+
     void Start()
     {
         isGameActive = true;
+        gameOverStatic = gameOver;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    public void GameOver()
+    public static void GameOver()
     {
         isGameActive = false;
         isGameOver = true;
-        //gameOver.gameObject.SetActive(true);
+        gameOverStatic.SetActive(true);
+        //SpawnManager.DestroyAllOrbs();
+    }
 
+    public static void RestartGame()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public static void ReturnToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public static void QuitGame()
+    {
+        DataManager.SaveScores();
+#if UNITY_EDITOR
+        EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
     }
 }

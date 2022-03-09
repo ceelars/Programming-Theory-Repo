@@ -53,6 +53,7 @@ public class SpecialOrb : BeatMarker
             EnableChildScripts();
             EnableColliders();
             Destroy(purpleOrb);
+            GameManager.specialOrbDestroyed = true;
             transform.DetachChildren();
             StartCoroutine("DestroyDelay");
         }
@@ -63,6 +64,7 @@ public class SpecialOrb : BeatMarker
         Destroy(this.gameObject);
     }
 
+    //Establish starting conditions for child objects
     private void InitializeChildren()
     {
         purpleOrb = transform.Find("PurpleOrb").gameObject;
@@ -79,7 +81,6 @@ public class SpecialOrb : BeatMarker
 
         DisableColliders();
         DisableChildScripts();
-
     }
 
     //Turn child scripts off
@@ -103,12 +104,14 @@ public class SpecialOrb : BeatMarker
         greenOrbScript.FindBeatZone();
         greenOrbScript.SetOrbBaseSpeed();
     }
+    //Turn off child colliders
     private void DisableColliders()
     {
         purpleOrbCollider.enabled = false;
         blueOrbCollider.enabled = false;
         greenOrbCollider.enabled = false;
     }
+    //Turn on child colliders
     private void EnableColliders()
     {
         purpleOrbCollider.enabled = true;

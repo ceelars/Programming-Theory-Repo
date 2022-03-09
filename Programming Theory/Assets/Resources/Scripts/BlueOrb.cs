@@ -27,6 +27,11 @@ public class BlueOrb : BeatMarker
             CheckPlayerInput(blueInput);
         }
     }
+    protected override void SetColor()
+    {
+        orbColor = DataManager.GetColor("Blue");
+        base.SetColor();
+    }
     protected override void ConstrainMarkerMovement()
     {
         if (transform.position.x <= beatZone.position.x)

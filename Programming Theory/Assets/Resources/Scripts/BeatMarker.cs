@@ -12,6 +12,7 @@ public class BeatMarker : MonoBehaviour
     //private int localBeatCountD8;
     
     protected Transform beatZone;
+    protected Color orbColor;
 
     private ScoreManager scoreManagerScript;
     private SpawnManager spawnManagerScript;
@@ -37,10 +38,11 @@ public class BeatMarker : MonoBehaviour
 
     protected virtual void Awake()
     {
+        SetColor();
         CheckChildStatus();
         FindBeatZone();
         //AssignPointValues();
-        scoreManagerScript = GameObject.Find("DataManager").GetComponent<ScoreManager>();
+        scoreManagerScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         spawnManagerScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         spawnManagerScript.ReassignEmptyOrbSlots(this.gameObject);
         canAttempt = false;
@@ -52,6 +54,13 @@ public class BeatMarker : MonoBehaviour
     }
 
     //ESTABLISH ORB PARAMETERS//
+    protected virtual void SetColor()
+    {
+        if (gameObject.GetComponent<Renderer>() != null)
+        {
+            gameObject.GetComponent<Renderer>().material.color = orbColor/255;
+        }
+    }
     public virtual void FindBeatZone()
     {
         beatZone = GameObject.FindGameObjectWithTag("BeatZone").transform;
@@ -179,5 +188,4 @@ public class BeatMarker : MonoBehaviour
             DestroySelf();
         }
     }
-    
 }

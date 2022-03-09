@@ -115,11 +115,14 @@ MonoBehaviour:
   canBeDestroyed: 0
   beatAttempt: 0
   canAttempt: 0
+  orbSpeed: 0
   perfectPoints: 10
   goodPoints: 5
   badPoints: -5
   missedPoints: -5
+  orbDuration: 0
   purpleInput: 115
+  material: {fileID: 2100000, guid: 38378db5626bfa54d945cf187d3789e1, type: 2}
 --- !u!54 &1255880357749432784
 Rigidbody:
   m_ObjectHideFlags: 0

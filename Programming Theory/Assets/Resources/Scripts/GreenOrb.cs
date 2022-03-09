@@ -27,6 +27,11 @@ public class GreenOrb : BeatMarker
             CheckPlayerInput(greenInput);
         }
     }
+    protected override void SetColor()
+    {
+        orbColor = DataManager.GetColor("Green");
+        base.SetColor();
+    }
 
     protected override void ConstrainMarkerMovement()
     {

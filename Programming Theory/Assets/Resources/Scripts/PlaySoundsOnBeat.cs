@@ -12,11 +12,18 @@ public class PlaySoundsOnBeat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //PlayOnSecondFullBeat();
-        PlayOnEveryFullBeat();
-        //PlayOnEveryQuarterBeat();
-        //PlayOnQuarterAndHalfBeat();
-        //ChangePianoNote();
+        if (GameManager.isGameActive)
+        {
+            //PlayOnSecondFullBeat();
+            PlayOnEveryFullBeat();
+            //PlayOnEveryQuarterBeat();
+            //PlayOnQuarterAndHalfBeat();
+            //ChangePianoNote();
+            if (GameManager.specialOrbDestroyed)
+            {
+                PlayOnHalfBeat();
+            }
+        }
     }
     void PlayOnSecondFullBeat()
     {
@@ -29,7 +36,7 @@ public class PlaySoundsOnBeat : MonoBehaviour
     {
         if (BeatDetector.beatFull)
         {
-            PlayClip(whoosh, 1);
+            PlayClip(piano[0], 1);
         }
     }
     void PlayOnEveryQuarterBeat()
@@ -38,6 +45,15 @@ public class PlaySoundsOnBeat : MonoBehaviour
         {
             //PlayClip(softStep, 1);
         }
+    }
+    public void PlayOnHalfBeat()
+    {
+        if (BeatDetector.beatD8 && BeatDetector.beatCountD8 % 8 == 4)
+        {
+            PlayClip(whoosh, 1);
+            GameManager.specialOrbDestroyed = false;
+        }
+
     }
     void PlayOnQuarterAndHalfBeat()
     {

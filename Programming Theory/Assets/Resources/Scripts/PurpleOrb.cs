@@ -27,8 +27,13 @@ public class PurpleOrb : BeatMarker
             CheckPlayerInput(purpleInput);
         }
     }
-    
+
     //OVERRIDES//
+    protected override void SetColor()
+    {
+        orbColor = DataManager.GetColor("Purple");
+        base.SetColor();
+    }
     public override void FindBeatZone()
     {
         beatZone = GameObject.Find("PurpleZone").transform;
