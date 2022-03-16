@@ -24,8 +24,13 @@ public class BlueOrb : BeatMarker
     {
         if (GameManager.isGameActive)
         {
-            CheckPlayerInput(blueInput);
+            CheckPlayerInput(blueInput, GameManager.blueOrbDestroyed);
         }
+    }
+    protected override void DestroySelf()
+    {
+        StartCoroutine(InputRefractory(GameManager.blueOrbDestroyed));
+        base.DestroySelf();
     }
     protected override void SetColor()
     {

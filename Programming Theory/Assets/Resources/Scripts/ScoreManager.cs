@@ -59,11 +59,12 @@ public class ScoreManager : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (badBeats >= 1)
+        if (badBeats >= 10)
         {
             GameManager.GameOver();
             DisplayLeaderboard.UpdateLeaderboard(currentScore);
             DataManager.SaveScores();
+            SpawnManager.DestroyAllOrbs();
         }
     }
 
@@ -75,14 +76,13 @@ public class ScoreManager : MonoBehaviour
     }
 
     
-    IEnumerator CheckDifficulty()
+    private void CheckDifficulty()
     {
         if (goodBeats >= 30)
         {
             BeatDetector.bpm += 10.0f;
             goodBeats = 0;
         }
-        else yield return null;
     }
     private void MarkMistakes()
     {

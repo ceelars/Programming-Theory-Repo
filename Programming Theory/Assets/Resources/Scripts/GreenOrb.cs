@@ -24,8 +24,14 @@ public class GreenOrb : BeatMarker
     {
         if (GameManager.isGameActive)
         {
-            CheckPlayerInput(greenInput);
+            CheckPlayerInput(greenInput, GameManager.greenOrbDestroyed);
         }
+    }
+
+    protected override void DestroySelf()
+    {
+        StartCoroutine(InputRefractory(GameManager.greenOrbDestroyed));
+        base.DestroySelf();
     }
     protected override void SetColor()
     {
@@ -50,5 +56,4 @@ public class GreenOrb : BeatMarker
         beatZone = GameObject.Find("GreenZone").transform;
     }
 
-   
 }

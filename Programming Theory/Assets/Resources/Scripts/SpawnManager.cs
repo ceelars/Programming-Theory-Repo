@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject[] orbs;
     [SerializeField] private Transform[] orbSpawn;
     public static List<GameObject> activeOrbs;
-    private int bankSize = 10;
+    private int bankSize = 50;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    void CreateNewOrbInstance(GameObject orb)
+    public void CreateNewOrbInstance(GameObject orb)
     {
         activeOrbs.Add(orb);
     }
@@ -54,16 +54,14 @@ public class SpawnManager : MonoBehaviour
                 return;
             }
         }
-        CreateNewOrbInstance(orb);
     }
     public static void DestroyAllOrbs()
     {
         for (int i = 0; i < activeOrbs.Count; i++)
         {
-            if (activeOrbs[i] == null)
+            if (activeOrbs[i] != null)
             {
                 Destroy(activeOrbs[i]);
-                return;
             }
         }
     }

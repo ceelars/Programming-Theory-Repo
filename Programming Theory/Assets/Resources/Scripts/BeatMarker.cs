@@ -127,12 +127,10 @@ public class BeatMarker : MonoBehaviour
             canAttempt = true;
             canBeDestroyed = true;
         }
-        
     }
-    protected void CheckPlayerInput(KeyCode playerInput)
+    protected void CheckPlayerInput(KeyCode playerInput, bool orbType)
     {
-
-        if (Input.GetKeyDown(playerInput))
+        if (Input.GetKeyDown(playerInput) && !orbType)
         {
             CheckAttempt();
         }
@@ -143,9 +141,15 @@ public class BeatMarker : MonoBehaviour
     }
     protected virtual void DestroySelf()
     {
-        if (canBeDestroyed)
+        if (canBeDestroyed && !isChild)
         {
             Destroy(this.gameObject);
+            
+        }
+        else if(canBeDestroyed && isChild)
+        {
+            GameManager.specialOrbDestroyedCount++;
+            gameObject.SetActive(false);
         }
         
     }
@@ -187,5 +191,11 @@ public class BeatMarker : MonoBehaviour
             canAttempt = false;
             DestroySelf();
         }
+    }
+    protected IEnumerator InputRefractory(bool orbType)
+    {
+        orbType = true;
+        yield return new WaitForSeconds(.25f);
+        orbType = false;
     }
 }

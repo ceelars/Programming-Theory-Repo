@@ -24,11 +24,16 @@ public class PurpleOrb : BeatMarker
     {
         if (GameManager.isGameActive)
         {
-            CheckPlayerInput(purpleInput);
+            CheckPlayerInput(purpleInput, GameManager.purpleOrbDestroyed);
         }
     }
 
     //OVERRIDES//
+    protected override void DestroySelf()
+    {
+        StartCoroutine(InputRefractory(GameManager.purpleOrbDestroyed));
+        base.DestroySelf();
+    }
     protected override void SetColor()
     {
         orbColor = DataManager.GetColor("Purple");

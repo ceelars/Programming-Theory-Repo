@@ -32,10 +32,9 @@ public class SpecialOrb : BeatMarker
     {
         if (GameManager.isGameActive)
         {
-            CheckPlayerInput(specialInput);
+            CheckPlayerInput(specialInput, GameManager.purpleOrbDestroyed);
         }
     }
-   
     
     
     //OVERRIDES//
@@ -50,11 +49,9 @@ public class SpecialOrb : BeatMarker
 
         if (canBeDestroyed && activeChildObjects != 0)
         {
+            Destroy(purpleOrb);
             EnableChildScripts();
             EnableColliders();
-            Destroy(purpleOrb);
-            GameManager.specialOrbDestroyed = true;
-            transform.DetachChildren();
             StartCoroutine("DestroyDelay");
         }
     }
@@ -94,11 +91,11 @@ public class SpecialOrb : BeatMarker
     //Turn child scripts on
     private void EnableChildScripts()
     {
-        purpleOrbScript.enabled = true;
+        //purpleOrbScript.enabled = true;
         blueOrbScript.enabled = true;
         greenOrbScript.enabled = true;
 
-        purpleOrbScript.FindBeatZone();
+        //purpleOrbScript.FindBeatZone();
         blueOrbScript.FindBeatZone();
         blueOrbScript.SetOrbBaseSpeed();
         greenOrbScript.FindBeatZone();
@@ -114,7 +111,7 @@ public class SpecialOrb : BeatMarker
     //Turn on child colliders
     private void EnableColliders()
     {
-        purpleOrbCollider.enabled = true;
+        //purpleOrbCollider.enabled = true;
         blueOrbCollider.enabled = true;
         greenOrbCollider.enabled = true;
         

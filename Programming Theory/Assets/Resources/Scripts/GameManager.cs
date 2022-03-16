@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public static GameObject gameOverStatic;
     public GameObject gameOver;
 
-    public static bool specialOrbDestroyed;
+    public static bool purpleOrbDestroyed, blueOrbDestroyed, greenOrbDestroyed, specialOrbDestroyed;
+    public static int specialOrbDestroyedCount = 0;
     public static bool isGameActive { get; private set; }
     public static bool isGameOver { get; private set; }
 
@@ -19,6 +20,15 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = true;
         gameOverStatic = gameOver;
+    }
+
+    private void Update()
+    {
+        if (specialOrbDestroyedCount == 3)
+        {
+            specialOrbDestroyed = false;
+            specialOrbDestroyedCount = 0;
+        }
     }
 
     public static void GameOver()
