@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         isGameOver = true;
         gameOverStatic.SetActive(true);
-        //SpawnManager.DestroyAllOrbs();
+        SpawnManager.DestroyAllOrbs();
     }
 
     public static void RestartGame()
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     }
     public static void QuitGame()
     {
-        DataManager.SaveScores();
+        DataManager.SaveDataToFile();
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else

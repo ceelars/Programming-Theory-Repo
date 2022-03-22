@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     {
         int orbIndex = Random.Range(0, orbs.Length);
 
-        if (GameManager.isGameActive)
+        if (GameManager.isGameActive || MenuUIHandler.isInMenuStatic)
         {
             Instantiate(orbs[orbIndex], orbSpawn[orbIndex].position, orbs[orbIndex].transform.rotation);
         }

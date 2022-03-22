@@ -7,16 +7,16 @@ public class BeatMarker : MonoBehaviour
     public GameObject specialOrb;
     public bool isChild, isInBeatZone, canBeDestroyed, beatAttempt, canAttempt;
     public float orbSpeed;
-    [SerializeField] 
+    [SerializeField]
     private int perfectPoints, goodPoints, badPoints, missedPoints;
     //private int localBeatCountD8;
-    
+
     protected Transform beatZone;
     protected Color orbColor;
 
     private ScoreManager scoreManagerScript;
     private SpawnManager spawnManagerScript;
-    
+
     //orbDuration is measured in beats, not seconds
     public float orbDuration;
     protected float OrbDuration
@@ -41,8 +41,11 @@ public class BeatMarker : MonoBehaviour
         SetColor();
         CheckChildStatus();
         FindBeatZone();
-        //AssignPointValues();
-        scoreManagerScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        AssignPointValues();
+        if (!MenuUIHandler.isInMenuStatic)
+        {
+            scoreManagerScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        }
         spawnManagerScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         spawnManagerScript.ReassignEmptyOrbSlots(this.gameObject);
         canAttempt = false;
@@ -51,6 +54,7 @@ public class BeatMarker : MonoBehaviour
     {
         MoveToZone();
         ConstrainMarkerMovement();
+        
     }
 
     //ESTABLISH ORB PARAMETERS//
@@ -58,7 +62,7 @@ public class BeatMarker : MonoBehaviour
     {
         if (gameObject.GetComponent<Renderer>() != null)
         {
-            gameObject.GetComponent<Renderer>().material.color = orbColor/255;
+            gameObject.GetComponent<Renderer>().material.color = orbColor / 255;
         }
     }
     public virtual void FindBeatZone()
@@ -86,14 +90,14 @@ public class BeatMarker : MonoBehaviour
     {
         perfectPoints = 20;
         goodPoints = 10;
-        badPoints = 5;
-        missedPoints = 5;
+        badPoints = -5;
+        missedPoints = -5;
     }
     private void CheckChildStatus()
     {
         if (gameObject.transform.parent == specialOrb.transform)
         {
-            
+
             isChild = true;
         }
         else
@@ -109,7 +113,7 @@ public class BeatMarker : MonoBehaviour
     }
     protected virtual void ConstrainMarkerMovement()
     {
-        if(transform.position.y <= beatZone.position.y)
+        if (transform.position.y <= beatZone.position.y)
         {
             transform.position = beatZone.position;
         }
@@ -141,7 +145,7 @@ public class BeatMarker : MonoBehaviour
     }
     protected virtual void DestroySelf()
     {
-        if (canBeDestroyed && !isChild)
+        if (canBeDestroyed && (!isChild || MenuUIHandler.isInMenuStatic))
         {
             Destroy(this.gameObject);
             
@@ -185,10 +189,13 @@ public class BeatMarker : MonoBehaviour
     {
         int localBeatCountD8 = BeatDetector.beatCountD8 + ((int)(OrbDuration * 8));
 
-        if (!beatAttempt && isInBeatZone && localBeatCountD8 % 8 == 2 && BeatDetector.beatD8)
+        if ((!beatAttempt && isInBeatZone && localBeatCountD8 % 8 == 2 && BeatDetector.beatD8) || MenuUIHandler.isInMenuStatic)
         {
-            scoreManagerScript.HitMissedBeat(missedPoints);
-            canAttempt = false;
+            if (!MenuUIHandler.isInMenuStatic)
+            {
+                scoreManagerScript.HitMissedBeat(missedPoints);
+                canAttempt = false;
+            }
             DestroySelf();
         }
     }

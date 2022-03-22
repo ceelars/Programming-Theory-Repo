@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviour
     public static DataManager instance;
     public static string playerName, firstPlaceName, secondPlaceName, thirdPlaceName, fourthPlaceName, fifthPlaceName;
     public static int firstPlaceScore, secondPlaceScore, thirdPlaceScore, fourthPlaceScore, fifthPlaceScore;
-    private static Dictionary<string, Color> colorPalette = new Dictionary<string, Color> 
+    private static Dictionary<string, Color> colorPalette = new Dictionary<string, Color>
     { //DEFAULT COLOR
         {"Purple", new Color(179, 97, 255, 255) },
         {"Blue", new Color(97, 133, 255, 255) },
@@ -18,7 +18,7 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadScores();
+        LoadDataFromFile();
     }
 
     private void Awake()
@@ -29,7 +29,7 @@ public class DataManager : MonoBehaviour
     //Create single instance of this object
     void Singleton()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
@@ -69,12 +69,24 @@ public class DataManager : MonoBehaviour
     {
         public string firstPlaceName, secondPlaceName, thirdPlaceName, fourthPlaceName, fifthPlaceName;
         public int firstPlaceScore, secondPlaceScore, thirdPlaceScore, fourthPlaceScore, fifthPlaceScore;
+        public List<Color> colorPalette = new List<Color>
+        { //DEFAULT COLOR
+            {new Color(179, 97, 255, 255) },
+            {new Color(97, 133, 255, 255) },
+            {new Color(97, 255, 208, 255) }
+        };
     }
 
-    public static void SaveScores()
+    public static void SaveDataToFile()
     {
         SaveData data = new SaveData();
-        
+        SaveScores(data);
+        SaveColorPaletteToData(data);
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+    private static void SaveScores(SaveData data)
+    {
         data.firstPlaceName = firstPlaceName;
         data.firstPlaceScore = firstPlaceScore;
 
@@ -89,33 +101,48 @@ public class DataManager : MonoBehaviour
 
         data.fifthPlaceName = fifthPlaceName;
         data.fifthPlaceScore = fifthPlaceScore;
-
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    private void LoadScores()
+    private static void SaveColorPaletteToData(SaveData data)
+    {
+        data.colorPalette[0] = colorPalette["Purple"];
+        data.colorPalette[1] = colorPalette["Blue"];
+        data.colorPalette[2] = colorPalette["Green"];
+    }
+
+    private void LoadDataFromFile()
     {
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-            firstPlaceName = data.firstPlaceName;
-            firstPlaceScore = data.firstPlaceScore;
-
-            secondPlaceName = data.secondPlaceName;
-            secondPlaceScore = data.secondPlaceScore;
-
-            thirdPlaceName = data.thirdPlaceName;
-            thirdPlaceScore = data.thirdPlaceScore;
-
-            fourthPlaceName = data.fourthPlaceName;
-            fourthPlaceScore = data.fourthPlaceScore;
-
-            fifthPlaceName = data.fifthPlaceName;
-            fifthPlaceScore = data.fifthPlaceScore;
+            LoadScores(data);
+            LoadColorPaletteFromData(data);
         }
+    }
+    private void LoadScores(SaveData data)
+    {
+        firstPlaceName = data.firstPlaceName;
+        firstPlaceScore = data.firstPlaceScore;
+
+        secondPlaceName = data.secondPlaceName;
+        secondPlaceScore = data.secondPlaceScore;
+
+        thirdPlaceName = data.thirdPlaceName;
+        thirdPlaceScore = data.thirdPlaceScore;
+
+        fourthPlaceName = data.fourthPlaceName;
+        fourthPlaceScore = data.fourthPlaceScore;
+
+        fifthPlaceName = data.fifthPlaceName;
+        fifthPlaceScore = data.fifthPlaceScore;
+    }
+    
+    private void LoadColorPaletteFromData(SaveData data)
+    {
+        colorPalette["Purple"] = data.colorPalette[0];
+        colorPalette["Blue"] = data.colorPalette[1];
+        colorPalette["Green"] = data.colorPalette[2];
     }
 }

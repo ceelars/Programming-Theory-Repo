@@ -1933,13 +1933,7 @@ MonoBehaviour:
   - {fileID: 1240279061}
   - {fileID: 1001307773}
   - {fileID: 1840992553}
-  currentScore: 0
-  perfectScore: 0
-  goodScore: 0
-  badScore: 0
-  badBeats: 0
-  goodBeats: 0
-  bankSize: 0
+  gameOverBeats: 10
 --- !u!1 &1001307773
 GameObject:
   m_ObjectHideFlags: 0

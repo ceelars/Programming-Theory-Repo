@@ -26,6 +26,10 @@ public class PurpleOrb : BeatMarker
         {
             CheckPlayerInput(purpleInput, GameManager.purpleOrbDestroyed);
         }
+        else if (MenuUIHandler.isInMenuStatic)
+        {
+            CheckMiss();
+        }
     }
 
     //OVERRIDES//

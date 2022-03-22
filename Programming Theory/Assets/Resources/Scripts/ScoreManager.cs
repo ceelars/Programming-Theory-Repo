@@ -8,7 +8,8 @@ public class ScoreManager : MonoBehaviour
 {
     public Text scoreText, mistakesText, playerNameText;
     public GameObject[] feedbackIndicators;
-    public int currentScore, perfectScore, goodScore, badScore, badBeats, goodBeats, bankSize;
+    private int currentScore, perfectScore, goodScore, badScore, badBeats, goodBeats, bankSize;
+    [SerializeField] private int gameOverBeats;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class ScoreManager : MonoBehaviour
         UpdateScore();
         goodBeats++;
         StartCoroutine(DisplayFeedback(0));
+        CheckDifficulty();
     }
 
     public void HitGoodBeat(int points)
@@ -29,6 +31,7 @@ public class ScoreManager : MonoBehaviour
         UpdateScore();
         goodBeats++;
         StartCoroutine(DisplayFeedback(1));
+        CheckDifficulty();
     }
 
     public void HitBadBeat(int points)
@@ -59,12 +62,11 @@ public class ScoreManager : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (badBeats >= 10)
+        if (badBeats >= gameOverBeats)
         {
             GameManager.GameOver();
             DisplayLeaderboard.UpdateLeaderboard(currentScore);
-            DataManager.SaveScores();
-            SpawnManager.DestroyAllOrbs();
+            DataManager.SaveDataToFile();
         }
     }
 

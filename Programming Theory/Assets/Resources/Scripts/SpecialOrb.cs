@@ -34,6 +34,10 @@ public class SpecialOrb : BeatMarker
         {
             CheckPlayerInput(specialInput, GameManager.purpleOrbDestroyed);
         }
+        else if (MenuUIHandler.isInMenuStatic)
+        {
+            CheckMiss();
+        }
     }
     
     
@@ -53,6 +57,10 @@ public class SpecialOrb : BeatMarker
             EnableChildScripts();
             EnableColliders();
             StartCoroutine("DestroyDelay");
+        }
+        else if (MenuUIHandler.isInMenuStatic)
+        {
+            Destroy(this.gameObject);
         }
     }
     IEnumerator DestroyDelay()

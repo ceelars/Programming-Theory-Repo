@@ -14,7 +14,6 @@ public class DisplayLeaderboard : MonoBehaviour
     {
         DisplayScores();
     }
-
     
 
     //Update score entry text
@@ -86,5 +85,6 @@ public class DisplayLeaderboard : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
+
     }
 }

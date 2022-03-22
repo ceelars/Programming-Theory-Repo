@@ -26,6 +26,10 @@ public class BlueOrb : BeatMarker
         {
             CheckPlayerInput(blueInput, GameManager.blueOrbDestroyed);
         }
+        else if (MenuUIHandler.isInMenuStatic)
+        {
+            CheckMiss();
+        }
     }
     protected override void DestroySelf()
     {

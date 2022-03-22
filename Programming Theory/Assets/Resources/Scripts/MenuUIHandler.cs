@@ -8,9 +8,19 @@ public class MenuUIHandler : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI nameEntry, colorChoice;
-    public bool isNameEntered;
+    private bool isNameEntered;
+    private static bool isInMenu;
+    public static bool isInMenuStatic
+    {
+        get { return isInMenu; }
+    }
+
     public GameObject nameWarning;
 
+    private void Start()
+    {
+        isInMenu = true;
+    }
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
@@ -19,12 +29,14 @@ public class MenuUIHandler : MonoBehaviour
     public void GoToLeaderboard()
     {
         SceneManager.LoadScene(1);
+        isInMenu = false;
     }
     public void GoToGame()
     {
         if(CheckForName())
         {
             SceneManager.LoadScene(2);
+            isInMenu = false;
         }
         else
         {
