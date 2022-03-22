@@ -11,12 +11,6 @@ public class BeatDetector : MonoBehaviour
     public static bool beatFull, beatD8;
     public static int beatCountFull, beatCountD8;
     public static float bpm = 60;
- 
-    /*public float BPM
-    {
-        get { return bpm; }
-        private set { bpm = value; }
-    }*/
 
     //Ensures this is the only instance of beat detector
     private void Awake()

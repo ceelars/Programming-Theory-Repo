@@ -57,7 +57,7 @@ public class BeatMarker : MonoBehaviour
         
     }
 
-    //ESTABLISH ORB PARAMETERS//
+    //ESTABLISH ORB PARAMETERS////ABSTRACTION//
     protected virtual void SetColor()
     {
         if (gameObject.GetComponent<Renderer>() != null)

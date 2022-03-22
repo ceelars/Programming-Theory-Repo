@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public static bool purpleOrbDestroyed, blueOrbDestroyed, greenOrbDestroyed, specialOrbDestroyed;
     public static int specialOrbDestroyedCount = 0;
+    //ENCAPSULATION
     public static bool isGameActive { get; private set; }
     public static bool isGameOver { get; private set; }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//INHERITANCE//
 public class SpecialOrb : BeatMarker
 {
     public GameObject blueOrbChild, greenOrbChild;
@@ -41,7 +42,7 @@ public class SpecialOrb : BeatMarker
     }
     
     
-    //OVERRIDES//
+    //OVERRIDES////POLYMORPHISM//
     public override void FindBeatZone()
     {
         beatZone = GameObject.Find("PurpleZone").transform;

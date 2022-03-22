@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//INHERITANCE//
 public class GreenOrb : BeatMarker
 {
     private float specialGreenDuration = 0.5f;
@@ -32,6 +33,7 @@ public class GreenOrb : BeatMarker
         }
     }
 
+    //OVERRIDES////POLYMORPHISM//
     protected override void DestroySelf()
     {
         StartCoroutine(InputRefractory(GameManager.greenOrbDestroyed));

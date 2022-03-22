@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//INHERITANCE//
 public class BlueOrb : BeatMarker
 {
     private float specialBlueDuration = 0.5f;
@@ -31,6 +32,7 @@ public class BlueOrb : BeatMarker
             CheckMiss();
         }
     }
+    //OVERRIDES////POLYMORPHISM//
     protected override void DestroySelf()
     {
         StartCoroutine(InputRefractory(GameManager.blueOrbDestroyed));

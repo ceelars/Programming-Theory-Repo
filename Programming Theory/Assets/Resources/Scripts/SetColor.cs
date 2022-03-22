@@ -19,15 +19,15 @@ public class SetColor : MonoBehaviour
     {
         Color orbColor = DataManager.GetColor(orbColorString);
 
-        if (gameObject.GetComponent<Image>() != null)
+        if (gameObject.GetComponent<SpriteRenderer>() != null)
         {
-            gameObject.GetComponent<Image>().color = orbColor / 255;
+            gameObject.GetComponent<SpriteRenderer>().color = orbColor / 255;
         }
     }
 
     private void SetOpacity(float alpha)
     {
-        float orbAlpha = gameObject.GetComponent<Image>().color.a;
+        float orbAlpha = gameObject.GetComponent<SpriteRenderer>().color.a;
         orbAlpha = alpha / 255;
     }
 }
